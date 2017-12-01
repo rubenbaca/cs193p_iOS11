@@ -16,6 +16,7 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 <img src="artwork/lecture-1.png?raw=true" width="320">
 
 * [Lecture 1 Slides](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
+* [Reading assignment 1](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
 * Exact code not available. See tag: [lecture-2.MVC](https://github.com/rubenbaca/cs193p_iOS11/tree/lecture-2.MVC) containing lectures 1 and 2.
 
 
