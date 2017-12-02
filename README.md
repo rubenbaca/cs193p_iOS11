@@ -29,5 +29,7 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 
 ## Programming Project 1: Concentration
 
+<img src="artwork/assignment-1-preview.jpg?raw=true" width="320">
+
 * PDF: [Programming Project 1: Concentration](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
-* Code for this assignment comming in a couple of days
+* Code for this assignment in tag: [project-1.Concentration](https://github.com/rubenbaca/cs193p_iOS11/tree/project-1.Concentration).
