@@ -23,46 +23,81 @@ class Concentration {
     ///
     var cards = [Card]()
     
+    // Programming assignment 1 (Task #8)
+    // "Tracking the flip count almost certainly does not belong in your Controller"
+    
+    ///
+    /// Track the number of flips the user has done
+    ///
+    var flipCount = 0
+    
+    ///
+    /// Keep track of the game's score
+    ///
+    var score = 0
+    
     ///
     /// Handle what to do when a card is chosen
     ///
     func chooseCard(at index: Int) {
         
-        // Process an unmatched card
-        if !cards[index].isMatched {
+        // If chosen card is already matched, ignore it (return)
+        if cards[index].isMatched {
+            return
+        }
+        
+        // Increment flipCount
+        flipCount += 1
+        
+        // If we have a card facing up already, check if it matches the chosen one
+        if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
             
-            // If we have a card facing up already, check if it matches the chosen one
-            if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
+            // If they match, mark them as matched
+            if cards[matchIndex].identifier == cards[index].identifier {
+                cards[matchIndex].isMatched = true
+                cards[index].isMatched = true
                 
-                // If they match, marked them as matched
-                if cards[matchIndex].identifier == cards[index].identifier {
-                    cards[matchIndex].isMatched = true
-                    cards[index].isMatched = true
-                }
-                
-                // Turn the chosen card face-up
-                cards[index].isFaceUp = true
-                
-                // Since there was a card face-up already (and we selected a new one),
-                // we no longer have only 1 card face-up
-                indexOfOneAndOnlyFaceUpCard = nil
+                // Increase the score
+                score += Points.foundMatch
             }
-            // We don't have oneAndOnly cards up
+            // Chosen pair of cards didn't match
             else {
-                
-                // Either two cards or no cards are face up
-                
-                // Flip them all down to be safe
-                for flipDownIndex in cards.indices {
-                    cards[flipDownIndex].isFaceUp = false
+                // Penalize 1 point for every previously seen card that is involved in a mismatch.
+                if seenCards.contains(index) {
+                    score -= Points.missMatchPenalty
                 }
-                
-                // Now turn the selected one face-up
-                cards[index].isFaceUp = true
-                
-                // We now have only 1 card face-up
-                indexOfOneAndOnlyFaceUpCard = index
+                // Penalize 1 point for every previously seen card that is involved in a mismatch.
+                if seenCards.contains(matchIndex) {
+                    score -= Points.missMatchPenalty
+                }
             }
+            
+            // Both cards have been seen by now
+            seenCards.insert(index)
+            seenCards.insert(matchIndex)
+            
+            // Turn the chosen card face-up
+            cards[index].isFaceUp = true
+            
+            // Since there was a card face-up already (and we selected a new one),
+            // we no longer have only 1 card face-up
+            indexOfOneAndOnlyFaceUpCard = nil
+        }
+        // We don't have oneAndOnly cards up
+        else {
+            
+            // Either two cards or no cards are face up
+            
+            // Flip them all down to be safe
+            for flipDownIndex in cards.indices {
+                cards[flipDownIndex].isFaceUp = false
+            }
+            
+            // Now turn the selected one face-up
+            cards[index].isFaceUp = true
+            
+            // We now have only 1 card face-up
+            indexOfOneAndOnlyFaceUpCard = index
         }
     }
     
@@ -80,11 +115,29 @@ class Concentration {
             cards.append(card)
         }
         
-        // TODO: Shuffle cards
+        // Programming assignment 1 (Task #4)
+        // "Shuffle the cards in Concentration’s init() method."
+        cards.shuffle()
     }
     
     ///
     /// Whether or not we have ONLY one card face-up
     ///
     var indexOfOneAndOnlyFaceUpCard: Int?
+    
+    ///
+    /// Keep track of which cards have been seen, for instance, to
+    /// penalize the player if they mismatch cards already seen.
+    ///
+    private var seenCards: Set<Int> = []
+    
+    ///
+    /// Defines how many points certain actions take
+    ///
+    private struct Points {
+        /// Increase score when user found a match
+        static let foundMatch = 2
+        /// Decrease score when a prev. seen card is involved in a mismatch
+        static let missMatchPenalty = 1
+    }
 }

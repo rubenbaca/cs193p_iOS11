@@ -14,6 +14,7 @@
 		459F71161FCF91BE00FBFB24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 459F71141FCF91BE00FBFB24 /* Main.storyboard */; };
 		459F71181FCF91BE00FBFB24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 459F71171FCF91BE00FBFB24 /* Assets.xcassets */; };
 		459F711B1FCF91BE00FBFB24 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 459F71191FCF91BE00FBFB24 /* LaunchScreen.storyboard */; };
+		45E811111FD33091004C2FA0 /* MutableCollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E811101FD33091004C2FA0 /* MutableCollectionExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		459F71171FCF91BE00FBFB24 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		459F711A1FCF91BE00FBFB24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		459F711C1FCF91BE00FBFB24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45E811101FD33091004C2FA0 /* MutableCollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableCollectionExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				459F71121FCF91BE00FBFB24 /* ViewController.swift */,
 				459F71141FCF91BE00FBFB24 /* Main.storyboard */,
 				45031FCF1FD0DB540011A72B /* Concentration.swift */,
+				45E811101FD33091004C2FA0 /* MutableCollectionExtension.swift */,
 				45031FD11FD0DC450011A72B /* Card.swift */,
 				459F71221FCF929200FBFB24 /* Supporting Files */,
 				459F711C1FCF91BE00FBFB24 /* Info.plist */,
@@ -151,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				459F71131FCF91BE00FBFB24 /* ViewController.swift in Sources */,
+				45E811111FD33091004C2FA0 /* MutableCollectionExtension.swift in Sources */,
 				459F71111FCF91BE00FBFB24 /* AppDelegate.swift in Sources */,
 				45031FD01FD0DB540011A72B /* Concentration.swift in Sources */,
 				45031FD21FD0DC450011A72B /* Card.swift in Sources */,
