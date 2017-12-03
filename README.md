@@ -40,3 +40,10 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 
 * [Lecture 3 Slides](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
 * Small code changes from lecture 3 added to tag: [lecture-3.Swift-Programming-Language](https://github.com/rubenbaca/cs193p_iOS11/tree/lecture-3.Swift-Programming-Language).
+
+## Lecture 4: More Swift
+
+<img src="artwork/lecture-4.jpg?raw=true" width="320">
+
+* [Lecture 4 Slides](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
+* Small code changes from lecture 4 added to tag: [lecture-4.More-Swift](https://github.com/rubenbaca/cs193p_iOS11/tree/lecture-4.More-Swift).
