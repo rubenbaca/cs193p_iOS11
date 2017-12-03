@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     ///
     /// Model - The actual game logic is contained in Concentration
     ///
-    var game: Concentration!
+    private  var game: Concentration!
     
     // Programming assignment 1 (Task #4 & extra-credit #1)
     //
@@ -32,24 +32,24 @@ class ViewController: UIViewController {
     ///
     /// The theme determines the game's look and feel.
     ///
-    var theme: Theme!
+    private var theme: Theme!
 
     /// Label that shows how many flips we've done
-    @IBOutlet weak var flipCountLabel: UILabel!
+    @IBOutlet private weak var flipCountLabel: UILabel!
     
     // Programming assignment 1 (Task #7)
     // "Add a game score label to your UI."
     
     /// Label that shows the current score
-    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet private weak var scoreLabel: UILabel!
     
     /// Array of cards in the UI
-    @IBOutlet var cardButtons: [UIButton]!
+    @IBOutlet private var cardButtons: [UIButton]!
     
     ///
     /// Handle the touch (press) of a card
     ///
-    @IBAction func touchCard(_ sender: UIButton) {
+    @IBAction private func touchCard(_ sender: UIButton) {
         // Get the index of the selected/touched card
         if let cardNumber = cardButtons.index(of: sender) {
             // Tell the model which card was chosen
@@ -68,9 +68,16 @@ class ViewController: UIViewController {
     // begins a brand new game.
     
     /// Start a new game
-    @IBAction func newGame() {
+    @IBAction private func newGame() {
         // Do initial setup
         initialSetup()
+    }
+    
+    ///
+    /// The number of pairs of cards in the game
+    ///
+    var numberOfPairsOfCards: Int {
+        return (cardButtons.count + 1)/2
     }
     
     ///
@@ -78,10 +85,10 @@ class ViewController: UIViewController {
     ///
     private func initialSetup() {
         // Create new Concentration game
-        game = Concentration(numberOfPairsOfCards: (cardButtons.count + 1)/2)
+        game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
         
         // Choose a random theme
-        theme = themes[Int(arc4random_uniform(UInt32(themes.count)))]
+        theme = themes[themes.count.arc4random]
         
         // Match board color (view's background) with the current theme color
         self.view.backgroundColor = theme.boardColor
@@ -180,7 +187,7 @@ class ViewController: UIViewController {
     /// For instance, a "halloween" theme might contain a dark (black) board with orange
     /// cards and a set of "scary" emojis.
     ///
-    struct Theme {
+    private struct Theme {
         /// The name of the theme (i.e. to show it on screen or something)
         var name: String
         
@@ -234,4 +241,3 @@ class ViewController: UIViewController {
         ),
         ]
 }
-

@@ -42,12 +42,12 @@ struct Card {
     /// Static identifier that is increased every time a new one is
     /// requested by getUniqueIdentifier()
     ///
-    static var identifierFactory = 0
+    private static var identifierFactory = 0
     
     ///
     /// Returns a unique id to be used as a card identifier
     ///
-    static func getUniqueIdentifier() -> Int {
+    private static func getUniqueIdentifier() -> Int {
         Card.identifierFactory += 1
         return Card.identifierFactory
     }

@@ -21,7 +21,7 @@ class Concentration {
     ///
     /// The cards in the game/board
     ///
-    var cards = [Card]()
+    private(set) var cards = [Card]()
     
     // Programming assignment 1 (Task #8)
     // "Tracking the flip count almost certainly does not belong in your Controller"
@@ -29,7 +29,7 @@ class Concentration {
     ///
     /// Track the number of flips the user has done
     ///
-    var flipCount = 0
+    private(set) var flipCount = 0
     
     ///
     /// Keep track of the game's score
@@ -40,6 +40,8 @@ class Concentration {
     /// Handle what to do when a card is chosen
     ///
     func chooseCard(at index: Int) {
+        
+        assert(cards.indices.contains(index), "Concentration.chooseCard(at: \(index): Invalid argument")
         
         // If chosen card is already matched, ignore it (return)
         if cards[index].isMatched {
@@ -62,7 +64,7 @@ class Concentration {
             }
             // Chosen pair of cards didn't match
             else {
-                // Penalize 1 point for every previously seen card that is involved in a mismatch.
+                // Penalize  1 point for every previously seen card that is involved in a mismatch.
                 if seenCards.contains(index) {
                     score -= Points.missMatchPenalty
                 }
@@ -78,24 +80,8 @@ class Concentration {
             
             // Turn the chosen card face-up
             cards[index].isFaceUp = true
-            
-            // Since there was a card face-up already (and we selected a new one),
-            // we no longer have only 1 card face-up
-            indexOfOneAndOnlyFaceUpCard = nil
         }
-        // We don't have oneAndOnly cards up
         else {
-            
-            // Either two cards or no cards are face up
-            
-            // Flip them all down to be safe
-            for flipDownIndex in cards.indices {
-                cards[flipDownIndex].isFaceUp = false
-            }
-            
-            // Now turn the selected one face-up
-            cards[index].isFaceUp = true
-            
             // We now have only 1 card face-up
             indexOfOneAndOnlyFaceUpCard = index
         }
@@ -105,6 +91,8 @@ class Concentration {
     /// Build a Concentration game based on the given number of card-pairs
     ///
     init(numberOfPairsOfCards: Int) {
+        
+        assert(numberOfPairsOfCards > 0, "Concentration(numberOfPairsOfCards: \(numberOfPairsOfCards): Must provide at least 1 pair of cards.")
         
         // Create each card in the game
         for _ in 1 ... numberOfPairsOfCards {
@@ -123,7 +111,33 @@ class Concentration {
     ///
     /// Whether or not we have ONLY one card face-up
     ///
-    var indexOfOneAndOnlyFaceUpCard: Int?
+    private var indexOfOneAndOnlyFaceUpCard: Int? {
+        get {
+            var foundIndex: Int?
+            
+            // Loop each card:
+            //  - If there are two or more face-up cards, return nil
+            //  - Else, return the index of the card facing up, or nil if none found
+            for index in cards.indices {
+                if cards[index].isFaceUp {
+                    if foundIndex == nil {
+                        foundIndex = index
+                    }
+                    else {
+                        return nil // at least two cards are face-up
+                    }
+                }
+            }
+            // Either nil or the face-up card
+            return foundIndex
+        }
+        set {
+            // Turn all cards face-down, except the oneAndOnly one
+            for index in cards.indices {
+                cards[index].isFaceUp = (index == newValue)
+            }
+        }
+    }
     
     ///
     /// Keep track of which cards have been seen, for instance, to
