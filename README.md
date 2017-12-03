@@ -33,3 +33,10 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 
 * PDF: [Programming Project 1: Concentration](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
 * Code for this assignment in tag: [project-1.Concentration](https://github.com/rubenbaca/cs193p_iOS11/tree/project-1.Concentration).
+
+## Lecture 3: Swift Programming Language
+
+<img src="artwork/lecture-3.jpg?raw=true" width="320">
+
+* [Lecture 3 Slides](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
+* Small code changes from lecture 3 added to tag: [lecture-3.Swift-Programming-Language](https://github.com/rubenbaca/cs193p_iOS11/tree/lecture-3.Swift-Programming-Language).
