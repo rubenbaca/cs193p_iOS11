@@ -10,7 +10,15 @@ import Foundation
 ///
 /// Represents a "Card" that is used in the "Concentration" game
 ///
-struct Card {
+struct Card: Hashable {
+    
+    /// To conform to `Hashable` protocol
+    var hashValue: Int { return identifier }
+    
+    /// To conform to `Equatable` protocol inherited form `Hashable`
+    static func ==(lhs: Card, rhs: Card) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
     
     ///
     /// Is the current card facing up?
@@ -29,7 +37,7 @@ struct Card {
     /// A unique identifier for the card.
     /// (The pair of matching cards have the same identifier)
     ///
-    var identifier: Int
+    private var identifier: Int
     
     ///
     /// Create a card with the given identifier

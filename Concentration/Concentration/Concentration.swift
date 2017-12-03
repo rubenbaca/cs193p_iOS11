@@ -16,7 +16,7 @@ import Foundation
 /// Concentration can be played with any number of players or as solitaire. It is a particularly
 /// good game for young children, though adults may find it challenging and stimulating as well.
 ///
-class Concentration {
+struct Concentration {
     
     ///
     /// The cards in the game/board
@@ -39,7 +39,7 @@ class Concentration {
     ///
     /// Handle what to do when a card is chosen
     ///
-    func chooseCard(at index: Int) {
+    mutating func chooseCard(at index: Int) {
         
         assert(cards.indices.contains(index), "Concentration.chooseCard(at: \(index): Invalid argument")
         
@@ -55,7 +55,7 @@ class Concentration {
         if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
             
             // If they match, mark them as matched
-            if cards[matchIndex].identifier == cards[index].identifier {
+            if cards[matchIndex] == cards[index] {
                 cards[matchIndex].isMatched = true
                 cards[index].isMatched = true
                 
@@ -113,23 +113,7 @@ class Concentration {
     ///
     private var indexOfOneAndOnlyFaceUpCard: Int? {
         get {
-            var foundIndex: Int?
-            
-            // Loop each card:
-            //  - If there are two or more face-up cards, return nil
-            //  - Else, return the index of the card facing up, or nil if none found
-            for index in cards.indices {
-                if cards[index].isFaceUp {
-                    if foundIndex == nil {
-                        foundIndex = index
-                    }
-                    else {
-                        return nil // at least two cards are face-up
-                    }
-                }
-            }
-            // Either nil or the face-up card
-            return foundIndex
+            return cards.indices.filter { cards[$0].isFaceUp }.oneAndOnly
         }
         set {
             // Turn all cards face-down, except the oneAndOnly one

@@ -101,13 +101,25 @@ class ViewController: UIViewController {
     }
     
     ///
+    /// Function that creates an attributed string (i.e. string with "visual" style),
+    /// which is explained (and used) in Lecture #4: "More Swift"
+    ///
+    private func attributedString(_ text: String) -> NSAttributedString {
+        let attributes: [NSAttributedStringKey : Any] = [
+            .strokeColor : UIColor.red,
+            .strokeWidth : -2.0
+        ]
+        return NSAttributedString(string: text, attributes: attributes)
+    }
+    
+    ///
     /// Keeps the UI updated based on the model's state
     ///
     private func updateUIFromModel() {
         
-        // Update flip count label
-        flipCountLabel.text = "Flip count: \(game.flipCount)"
-        
+        // Update flip count label (using NSAttributedString as seen on Lecture #4)
+        flipCountLabel.attributedText = attributedString("Flip count: \(game.flipCount)")
+
         // Update the current score
         scoreLabel.text = "Score: \(game.score)"
         
@@ -143,19 +155,19 @@ class ViewController: UIViewController {
         
         // Do initialSetup
         initialSetup()
-    }
+    } 
     
     ///
     /// Each card/button will have a corresponding emoji
     ///
-    private var emoji = [Int: String]()
+    private var emoji = [Card: String]()
  
     ///
     /// Get an emoji for the given card
     ///
     private func emoji(for card: Card) -> String {
         // Return the emoji, or "?" if none available
-        return emoji[card.identifier] ?? "?"
+        return emoji[card] ?? "?"
     }
     
     ///
@@ -171,12 +183,12 @@ class ViewController: UIViewController {
         
         for card in game.cards {
             // Make sure emojis has item(s) and the card is not set yet
-            if !emojis.isEmpty, emoji[card.identifier] != nil {
+            if !emojis.isEmpty, emoji[card] != nil {
                 // Assign emoji
-                emoji[card.identifier] = emojis.removeFirst()
+                emoji[card] = emojis.removeFirst()
             }
             else {
-                emoji[card.identifier] = "?"
+                emoji[card] = "?"
             }
         }
     }
