@@ -62,3 +62,7 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 
 * [Lecture 6 Slides](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
 * Code from lecture 6 (PlayingCard) in tag: [lecture-6.Multitouch](https://github.com/rubenbaca/cs193p_iOS11/tree/lecture-6.Multitouch).
+
+## Programming Project 2: Set
+
+* Commit for this project coming in a few days.
