@@ -65,4 +65,8 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 
 ## Programming Project 2: Set
 
-* Commit for this project coming in a few days.
+
+<img src="artwork/assignment-2-preview.jpg?raw=true" width="640">
+
+* PDF: [Programming Project 2: Set](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
+* Code for this assignment in tag: [project-2.Set](https://github.com/rubenbaca/cs193p_iOS11/tree/project-2.Set).
