@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ConcentrationViewController.swift
 //  Concentration
 //
 //  Created by Ruben on 11/29/17.
@@ -10,7 +10,7 @@ import UIKit
 ///
 /// View-controller of the concentration game
 ///
-class ViewController: UIViewController {
+class ConcentrationViewController: UIViewController {
 
     // (Note)
     // Lazy allows us to use instance variable "cardButtons", because it should
@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     ///
     /// The theme determines the game's look and feel.
     ///
-    private var theme: Theme!
+    lazy var theme: Theme = defaultTheme
 
     /// Label that shows how many flips we've done
     @IBOutlet private weak var flipCountLabel: UILabel!
@@ -86,9 +86,6 @@ class ViewController: UIViewController {
     private func initialSetup() {
         // Create new Concentration game
         game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
-        
-        // Choose a random theme
-        theme = themes[themes.count.arc4random]
         
         // Match board color (view's background) with the current theme color
         self.view.backgroundColor = theme.boardColor
@@ -199,7 +196,7 @@ class ViewController: UIViewController {
     /// For instance, a "halloween" theme might contain a dark (black) board with orange
     /// cards and a set of "scary" emojis.
     ///
-    private struct Theme {
+    struct Theme {
         /// The name of the theme (i.e. to show it on screen or something)
         var name: String
         
@@ -214,42 +211,9 @@ class ViewController: UIViewController {
     }
     
     ///
-    /// Available themes the app supports.
+    /// The default theme to use
     ///
-    /// Add more themes as you please.
-    ///
-    private var themes: [Theme] = [
-        Theme(name: "Christmas",
-              boardColor: #colorLiteral(red: 0.9678710938, green: 0.9678710938, blue: 0.9678710938, alpha: 1),
-              cardColor: #colorLiteral(red: 0.631328125, green: 0.1330817629, blue: 0.06264670187, alpha: 1),
-              emojis: ["🎅", "🤶", "🧝", "🧦", "🦌", "🍪", "🥛", "🍷", "⛪", "🌟", "❄", "⛄",
-                       "🎄", "🎁", "🔔", "🕯"]
-        ),
-        Theme(name: "Halloween",
-              boardColor: #colorLiteral(red: 1, green: 0.8556062016, blue: 0.5505848702, alpha: 1),
-              cardColor: #colorLiteral(red: 0.7928710937, green: 0.373980853, blue: 0, alpha: 1),
-              emojis: ["💀", "👻", "👽", "🧙", "🧛", "🧟", "🦇", "🕷", "🕸", "🛸", "🎃", "🎭",
-                       "🗡", "⚰"]
-        ),
-        Theme(name: "Faces",
-              boardColor: #colorLiteral(red: 0.9959731026, green: 1, blue: 0.8252459694, alpha: 1),
-              cardColor: #colorLiteral(red: 0.8265820312, green: 0.7249050135, blue: 0.4632316118, alpha: 1),
-              emojis: ["😀", "😁", "😂", "🤣", "😃", "😄", "😅", "😆", "😉", "😊", "😋", "😎",
-                       "😍", "😘", "😗", "😙", "😚", "☺", "🙂", "🤗", "🤩", "🤔", "🤨", "😐",
-                       "😑", "😶", "🙄", "😏", "😣", "😥", "😮", "🤐", "😯", "😪", "😫", "😴",
-                       "😌", "😛", "😜", "😝", "🤤", "😒", "😓", "😔", "😕", "🙃", "🤑", "😲",
-                       "☹", "🙁", "😖", "😞", "😟", "😤", "😢", "😭", "😦", "😧", "😨", "😩",
-                       "🤯", "😬", "😰", "😱", "😳", "🤪", "😵", "😡", "😠", "🤬", "😷", "🤒",
-                       "🤕", "🤢", "🤮", "🤧", "😇", "🤠", "🤡", "🤥", "🤫", "🤭", "🧐", "🤓"]
-        ),
-        Theme(name: "Animals",
-              boardColor: #colorLiteral(red: 0.8306297664, green: 1, blue: 0.7910112419, alpha: 1),
-              cardColor: #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1),
-              emojis: ["🙈", "🙉", "🙊", "💥", "💦", "💨", "💫", "🐵", "🐒", "🦍", "🐶", "🐕",
-                       "🐩", "🐺", "🦊", "🐱", "🐈", "🦁", "🐯", "🐅", "🐆", "🐴", "🐎", "🦄",
-                       "🦓", "🐮", "🐂", "🐃", "🐄", "🐷", "🐖", "🐗", "🐽", "🐏", "🐑", "🐐",
-                       "🐪", "🐫", "🦒", "🐘", "🦏", "🐭", "🐁", "🐀", "🐹", "🐰", "🐇", "🐿",
-                       "🦔", "🦇", "🐻", "🐨", "🐼", "🐾", "🦃", "🐔", "🐓", "🐣", "🐤", "🐥"]
-        ),
-        ]
+    private var defaultTheme = Theme(name: "Default", boardColor: #colorLiteral(red: 0.9678710938, green: 0.9678710938, blue: 0.9678710938, alpha: 1), cardColor: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1),
+                                    emojis: ["🍏", "🍎", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇",
+                                             "🍓", "🍈", "🍒", "🍑", "🍍", "🥝", "🥑", "🍅",])
 }
