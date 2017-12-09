@@ -70,3 +70,10 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 
 * PDF: [Programming Project 2: Set](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
 * Code for this assignment in tag: [project-2.Set](https://github.com/rubenbaca/cs193p_iOS11/tree/project-2.Set).
+
+## Lecture 7: Multiple MVCs, Timer and Animation
+
+<img src="artwork/lecture-7.jpg?raw=true" width="320">
+
+* [Lecture 7 Slides](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
+* Code from lecture 7 (Concentration) in tag: [lecture-7.Multiple-MVCs](https://github.com/rubenbaca/cs193p_iOS11/tree/lecture-7.Multiple-MVCs).
