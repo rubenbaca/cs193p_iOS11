@@ -77,3 +77,7 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 
 * [Lecture 7 Slides](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
 * Code from lecture 7 (Concentration) in tag: [lecture-7.Multiple-MVCs](https://github.com/rubenbaca/cs193p_iOS11/tree/lecture-7.Multiple-MVCs).
+
+## Programming Project 3: Graphical Set
+
+* Commit for this project coming in the next few days.
