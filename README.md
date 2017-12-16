@@ -80,4 +80,7 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 
 ## Programming Project 3: Graphical Set
 
-* Commit for this project coming in the next few days.
+<img src="artwork/assignment-3-preview.jpg?raw=true" width="320">
+
+* PDF: [Programming Project 3: Graphical Set](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
+* Code for this assignment in tag: [project-3.Graphical-Set](https://github.com/rubenbaca/cs193p_iOS11/tree/project-3.Graphical-Set).
