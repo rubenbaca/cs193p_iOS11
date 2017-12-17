@@ -84,3 +84,10 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 
 * PDF: [Programming Project 3: Graphical Set](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
 * Code for this assignment in tag: [project-3.Graphical-Set](https://github.com/rubenbaca/cs193p_iOS11/tree/project-3.Graphical-Set).
+
+## Lecture 8: Animation
+
+<img src="artwork/lecture-8.jpg?raw=true" width="320">
+
+* [Lecture 8 Slides](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
+* Code from lecture 8 (PlayingCard with animation) in tag: [lecture-8.Animation](https://github.com/rubenbaca/cs193p_iOS11/tree/lecture-8.Animation).
