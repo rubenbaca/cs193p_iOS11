@@ -91,3 +91,8 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 
 * [Lecture 8 Slides](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
 * Code from lecture 8 (PlayingCard with animation) in tag: [lecture-8.Animation](https://github.com/rubenbaca/cs193p_iOS11/tree/lecture-8.Animation).
+
+## Programming Project 4: Animated Set
+
+* Code for assignment 4 will be available before lecture 11.
+
