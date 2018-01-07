@@ -96,3 +96,12 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 
 * Code for assignment 4 will be available before lecture 11.
 
+
+## Lecture 9: View Controller Lifecycle and Scroll View
+
+<img src="artwork/lecture-9.jpg?raw=true" width="320">
+
+* [Lecture 9 Slides](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
+* Code from lecture 9 (View Controller Lifecycle and Scroll View) in tag: [lecture-9.View-Controller-Lifecycle](https://github.com/rubenbaca/cs193p_iOS11/tree/lecture-9.View-Controller-Lifecycle).
+
+
