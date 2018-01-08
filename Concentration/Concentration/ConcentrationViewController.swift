@@ -46,12 +46,23 @@ class ConcentrationViewController: UIViewController {
     /// Array of cards in the UI
     @IBOutlet private var cardButtons: [UIButton]!
     
+    // The cardButtons that are visible (Ugh, this is so ugly)
+    private var visibleCardButtons: [UIButton]! {
+        return cardButtons?.filter { !$0.superview!.isHidden }
+    }
+    
+    // Update UI every time we get subviews laid out
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateUIFromModel()
+    }
+    
     ///
     /// Handle the touch (press) of a card
     ///
     @IBAction private func touchCard(_ sender: UIButton) {
         // Get the index of the selected/touched card
-        if let cardNumber = cardButtons.index(of: sender) {
+        if let cardNumber = visibleCardButtons.index(of: sender) {
             // Tell the model which card was chosen
             game.chooseCard(at: cardNumber)
             
@@ -59,7 +70,7 @@ class ConcentrationViewController: UIViewController {
             updateUIFromModel()
         }
         else {
-            print("Warning! The chosen card was not in cardButtons")
+            print("Warning! The chosen card was not in visibleCardButtons")
         }
     }
     
@@ -77,7 +88,7 @@ class ConcentrationViewController: UIViewController {
     /// The number of pairs of cards in the game
     ///
     var numberOfPairsOfCards: Int {
-        return (cardButtons.count + 1)/2
+        return (visibleCardButtons.count + 1)/2
     }
     
     ///
@@ -114,6 +125,15 @@ class ConcentrationViewController: UIViewController {
     ///
     private func updateUIFromModel() {
         
+        // (Intentionally skipping this variation based on size classes)
+//        // Example to vary this based on size class:
+//        if traitCollection.verticalSizeClass == .compact {
+//            flipCountLabel.attributedText = attributedString("Flip count: \(game.flipCount)")
+//        }
+//        else {
+//            flipCountLabel.attributedText = attributedString("Flip count:\n\(game.flipCount)")
+//        }
+        
         // Update flip count label (using NSAttributedString as seen on Lecture #4)
         flipCountLabel.attributedText = attributedString("Flip count: \(game.flipCount)")
 
@@ -121,9 +141,9 @@ class ConcentrationViewController: UIViewController {
         scoreLabel.text = "Score: \(game.score)"
         
         // Loop through each card (we care about the index only)
-        for index in cardButtons.indices {
+        for index in visibleCardButtons.indices {
             // Get the button at current indext
-            let button = cardButtons[index]
+            let button = visibleCardButtons[index]
             
             // Get the card (from the model) at the current index
             let card = game.cards[index]
@@ -145,6 +165,12 @@ class ConcentrationViewController: UIViewController {
             }
         }
     }
+
+// (Intentionally skipping this variation based on size classes)
+//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+//        super.traitCollectionDidChange(previousTraitCollection)
+//        updateUIFromModel()
+//    }
     
     // Setup/configure stuff as soon as the view loads
     override func viewDidLoad() {

@@ -2,8 +2,8 @@
 //  ImageViewController.swift
 //  Cassini
 //
-//  Created by Ruben on 1/6/18.
-//  Copyright © 2018 Ruben. All rights reserved.
+//  Created by Ruben Baca on 1/6/18.
+//  Copyright © 2018 Ruben Baca. All rights reserved.
 //
 import UIKit
 
@@ -19,7 +19,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             image = nil
             
             //
-            // Only fetch the image if we're on screen, to avoid unnecessary network/resources from being wasted
+            // Only fetch the image if we're on screen, to avoid unnecessary
+            // network/resources from being wasted
             //
             if viewControllerIsOnScreen {
                 fetchImage()
@@ -42,7 +43,10 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             imageView.sizeToFit()
             
             // Make sure the scrollView's content size encloses the new image size
-            scrollView.contentSize = imageView.frame.size
+            scrollView?.contentSize = imageView.frame.size
+            
+            // We've succesfully set an image, stop the spinner
+            spinner?.stopAnimating()
         }
         get {
             // Return the imageView's current image
@@ -103,13 +107,43 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             return // nothing to set
         }
         
-        // Retrieve image data from the given URL
-        guard let imageData = try? Data(contentsOf: url) else {
-            return // failed to get data from URL
-        }
+        // Start the spinner to indicate we're about to start fetching/downloading the image
+        spinner.startAnimating()
         
-        // Set the image
-        image = UIImage(data: imageData)
+        //
+        // Fetch image in the "background" (non-main queue).
+        //
+        // Note: Although we don't have a memory cycle for capturing `self`, we are using `[weak self]` because
+        // the asynchronous operation could take some time to respond; by that time, the user might not be
+        // waiting for it anymore (i.e. hit back or go somewhere else). In this case, we don't want to keep
+        // `self` in the heap.
+        //
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            
+            // Retrieve image data from the given URL
+            guard let imageData = try? Data(contentsOf: url) else {
+                return // failed to get data from URL
+            }
+            
+            //
+            // Set the image when the prev. async. operation finishes.
+            //
+            // Note: setting up `image` here is affecting/updating our UI. This must be done in the main
+            // queue.
+            //
+            DispatchQueue.main.async {
+                
+                //
+                // Note: This block of code might occur N seconds/minutes after we went fetching the data
+                // to the network. Because of this, the controller's `imageURL` might not be the same anymore
+                // (i.e. the caller/user changed it to something else), so we are checking that the url is
+                // still the same and therefore, the image is the one we currently want to show.
+                //
+                if url == self?.imageURL {
+                    self?.image = UIImage(data: imageData)
+                }
+            }
+        }
     }
     
     ///
@@ -130,4 +164,10 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
+    
+    ///
+    /// Activity indicator (spinner) that shows when loading an image.
+    /// This tells the user that the image is being fetched.
+    ///
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
 }
