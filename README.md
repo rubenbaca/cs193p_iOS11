@@ -111,3 +111,11 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 
 * [Lecture 10 Slides](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
 * Code from lecture 10 (Multithreading and Autolayout) in tag: [lecture-10.Multithreading-and-Autolayout](https://github.com/rubenbaca/cs193p_iOS11/tree/lecture-10.Multithreading-and-Autolayout).
+
+
+## Lecture 11: Drag and Drop, Table View and Collection View
+
+<img src="artwork/lecture-11.jpg?raw=true" width="320">
+
+* [Lecture 11 Slides](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
+* Code from lecture 11 (Drag and Drop, Table View and Collection View) in tag: [lecture-11.Drag-and-Drop-Table-View](https://github.com/rubenbaca/cs193p_iOS11/tree/lecture-11.Drag-and-Drop-Table-View).
