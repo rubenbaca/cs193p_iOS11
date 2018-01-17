@@ -80,4 +80,18 @@ class EmojiArtDocumentTableViewController: UITableViewController {
         // Reload tableView
         tableView.reloadData()
     }
+    
+    //
+    // Called to notify the view controller that its view is about to layout its subviews.
+    //
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        // Make sure the split-view controller's diplay mode is the one we want.
+        if splitViewController?.preferredDisplayMode != .primaryOverlay {
+            // The primary view controller is layered on top of the secondary view controller,
+            // leaving the secondary view controller partially visible.
+            splitViewController?.preferredDisplayMode = .primaryOverlay
+        }
+    }
 }
