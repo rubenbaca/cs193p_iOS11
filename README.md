@@ -127,3 +127,9 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 
 * [Lecture 12 Slides](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
 * Code from lecture 12 (Drag and Drop, Table View, Collection View, and Text Field) in tag: [lecture-12.Drag-and-Drop-Table-View](https://github.com/rubenbaca/cs193p_iOS11/tree/lecture-12.Drag-and-Drop-Table-View).
+
+
+## Programming Project 5: Image Gallery
+
+* Coming up next...
+
