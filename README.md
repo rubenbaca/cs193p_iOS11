@@ -131,5 +131,9 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 
 ## Programming Project 5: Image Gallery
 
-* Coming up next...
+<img src="artwork/assignment-5.jpg?raw=true" width="320">
+
+* PDF: [Programming Project 5: Image Gallery](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
+* Code for this assignment in tag: [project-5.Image-Gallery](https://github.com/rubenbaca/cs193p_iOS11/tree/project-5.Image-Gallery).
+
 
