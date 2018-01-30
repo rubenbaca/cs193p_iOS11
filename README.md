@@ -94,7 +94,7 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 
 ## Programming Project 4: Animated Set
 
-* Code for assignment 4 will be available before lecture 11.
+* Code for assignment 4 will be available before lecture 11. (Delayed.)
 
 
 ## Lecture 9: View Controller Lifecycle and Scroll View
