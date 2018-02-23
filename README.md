@@ -137,3 +137,5 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 * Code for this assignment in tag: [project-5.Image-Gallery](https://github.com/rubenbaca/cs193p_iOS11/tree/project-5.Image-Gallery).
 
 
+## Lecture 13. Persistence and Documents
+* Coming up next. 
