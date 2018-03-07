@@ -119,6 +119,23 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
             UIFont.preferredFont(forTextStyle: .body).withSize(40.0)
         )
     }
+    
+    ///
+    /// Keeps track of whether or not the user is adding an Emoji
+    ///
+    private var addingEmoji = false
+    
+    ///
+    /// Add emoji button was clicked
+    ///
+    @IBAction func addEmoji() {
+        // Update internal state to "adding emoji"
+        addingEmoji = true
+        
+        // Reloading section 0 with the prev. addingEmoji=true instruction will show
+        // a "input textfield" where the user may add new emojis.
+        emojiCollectionView.reloadSections(IndexSet(integer: 0))
+    }
 }
 
 // Conform to `UIDropInteractionDelegate`
@@ -205,6 +222,11 @@ extension EmojiArtViewController: UICollectionViewDropDelegate {
     /// What to do when dropping items
     ///
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        
+        // We don't want dropping into section 0 (that section is for adding new emojis only)
+        if let indexPath = destinationIndexPath, indexPath.section == 0 {
+            return UICollectionViewDropProposal(operation: .cancel)
+        }
         
         // Determine if the drop is coming from within the collectionView
         let isSelf = (session.localDragSession?.localContext as? UICollectionView) == collectionView
@@ -308,6 +330,11 @@ extension EmojiArtViewController: UICollectionViewDragDelegate {
     ///
     private func dragItem(at indexPath: IndexPath) -> [UIDragItem] {
         
+        // If user is adding an emoji, disable dragging
+        if addingEmoji {
+            return []
+        }
+        
         // Get the cell containing the emoji
         guard let emojiCell = emojiCollectionView.cellForItem(at: indexPath) as? EmojiCollectionViewCell else {
             return []
@@ -333,29 +360,97 @@ extension EmojiArtViewController: UICollectionViewDragDelegate {
 // Conform to `UICollectionViewDataSource`
 extension EmojiArtViewController: UICollectionViewDataSource {
     
+    // Number of sections
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        // Section #0: Contains only one cell: either "+" (add) emoji cell, or the "input" textField to add emojis
+        // Section #1: The list of emojis
+        return 2
+    }
+    
     // Number of items in section
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return emojis.count
+        switch section {
+        // Section #0: Contains only one cell: either "+" (add) emoji cell, or the "input" textField to add emojis
+        case 0: return 1
+        // Section #1: The list of emojis
+        case 1: return emojis.count
+        // Should not occur
+        default: return 0
+        }
     }
     
     // Get cell for item at given indexPath
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        // Dequeue a reusable emoji-cell
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmojiCell", for: indexPath)
-        
-        // Make sure it is the expected EmojiCollectionViewCell type
-        guard let emojiCell = cell as? EmojiCollectionViewCell else {
+        // List of emojis available
+        if indexPath.section == 1 {
+            // Dequeue a reusable emoji-cell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmojiCell", for: indexPath)
+            
+            // Make sure it is the expected EmojiCollectionViewCell type
+            guard let emojiCell = cell as? EmojiCollectionViewCell else {
+                return cell
+            }
+            
+            // Create attributed-string with the proper emoji and the predefined font
+            let text = NSAttributedString(string: emojis[indexPath.item], attributes: [.font: font])
+            
+            // Setup cell
+            emojiCell.label.attributedText = text
+            
+            // Return it
+            return emojiCell
+        }
+        // If we're not in section 1, and we are adding an emoji, we want to show the "EmojiInputCell" cell
+        else if addingEmoji {
+            
+            // Add emoji cell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmojiInputCell", for: indexPath)
+            
+            // Must be of type TextFieldCollectionViewCell
+            if let inputCell = cell as? TextFieldCollectionViewCell {
+                
+                // Resignation handler gets called when editing of the textField ends
+                inputCell.resignationHandler = { [weak self, unowned inputCell] in
+                    
+                    // Get the text we want to add
+                    if let text = inputCell.textField.text {
+                        // Add list of emojis (characters) to the beginning of `emojis`
+                        self?.emojis = ((text.map{ String($0)}) + self!.emojis).uniquified
+                    }
+                    // We're no longer adding emojis
+                    self?.addingEmoji = false
+                    // We want to reload the view/table since the model changed
+                    self?.emojiCollectionView.reloadData()
+                }
+            }
             return cell
         }
+        // If we are not adding an emoji, show the "+" (add) emoji cell
+        else {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: "AddEmojiButtonCell", for: indexPath)
+        }
+    }
+    
+    // Size for item at indexPath
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        // Create attributed-string with the proper emoji and the predefined font
-        let text = NSAttributedString(string: emojis[indexPath.item], attributes: [.font: font])
-        
-        // Setup cell
-        emojiCell.label.attributedText = text
-        
-        // Return it
-        return emojiCell
+        // If we're adding an emoji, we want to show the input cell wider than usual
+        if addingEmoji && indexPath.section == 0 {
+            return CGSize(width: 300, height: 80)
+        }
+        // Regular cells have a fixed size of NxN
+        else {
+            return CGSize(width: 80, height: 80)
+        }
+    }
+    
+    // Will display cell at indexPath
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        // If we're about to display the TextFieldCollectionViewCell cell, we want to show the keyboard.
+        if let inputCell = cell as? TextFieldCollectionViewCell {
+            // Show keyboard
+            inputCell.textField.becomeFirstResponder()
+        }
     }
 }

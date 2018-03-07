@@ -51,7 +51,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wMB-eu-trF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="711" y="-280"/>
+            <point key="canvasLocation" x="1243" y="-124"/>
         </scene>
         <!--Emoji Art View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -125,12 +125,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zgi-8r-981">
-                                                    <rect key="frame" x="25" y="25" width="0.0" height="0.0"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="64"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Ed7-2j-UmH">
                                                     <rect key="frame" x="15" y="15" width="20" height="20"/>
                                                 </activityIndicatorView>
@@ -138,10 +132,52 @@
                                         </view>
                                         <constraints>
                                             <constraint firstItem="Ed7-2j-UmH" firstAttribute="centerX" secondItem="hPJ-fY-AqC" secondAttribute="centerX" id="0bd-R3-iz1"/>
-                                            <constraint firstItem="Zgi-8r-981" firstAttribute="centerY" secondItem="hPJ-fY-AqC" secondAttribute="centerY" id="3Tz-vS-oJu"/>
-                                            <constraint firstItem="Zgi-8r-981" firstAttribute="centerX" secondItem="hPJ-fY-AqC" secondAttribute="centerX" id="ALX-xp-AyU"/>
                                             <constraint firstItem="Ed7-2j-UmH" firstAttribute="centerY" secondItem="hPJ-fY-AqC" secondAttribute="centerY" id="Avm-Wq-FGU"/>
                                         </constraints>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddEmojiButtonCell" id="fF7-OU-Wqo">
+                                        <rect key="frame" x="120" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="URq-Li-5ef">
+                                                    <rect key="frame" x="14" y="14" width="22" height="22"/>
+                                                    <connections>
+                                                        <action selector="addEmoji" destination="BYZ-38-t0r" eventType="touchUpInside" id="6zt-Ay-pBN"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="URq-Li-5ef" firstAttribute="centerY" secondItem="fF7-OU-Wqo" secondAttribute="centerY" id="J0h-lZ-2Pr"/>
+                                            <constraint firstItem="URq-Li-5ef" firstAttribute="centerX" secondItem="fF7-OU-Wqo" secondAttribute="centerX" id="cji-Sn-bhK"/>
+                                        </constraints>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EmojiInputCell" id="Tjf-dA-V9f" customClass="TextFieldCollectionViewCell" customModule="EmojiArt" customModuleProvider="target">
+                                        <rect key="frame" x="180" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tdX-J9-wqN">
+                                                    <rect key="frame" x="0.0" y="8" width="50" height="34"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="tdX-J9-wqN" firstAttribute="centerX" secondItem="Tjf-dA-V9f" secondAttribute="centerX" id="CcA-rl-Pid"/>
+                                            <constraint firstItem="tdX-J9-wqN" firstAttribute="width" secondItem="Tjf-dA-V9f" secondAttribute="width" id="Gwr-0E-18b"/>
+                                            <constraint firstItem="tdX-J9-wqN" firstAttribute="centerY" secondItem="Tjf-dA-V9f" secondAttribute="centerY" id="UM1-6l-TML"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="textField" destination="tdX-J9-wqN" id="Ep6-Pd-hRQ"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -181,7 +217,7 @@
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jdP-Ts-BFR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-636" y="36"/>
+            <point key="canvasLocation" x="-1746" y="48"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6Qb-CJ-T1F">
@@ -199,7 +235,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lnf-aU-ubs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="35" y="-279"/>
+            <point key="canvasLocation" x="-30" y="-566"/>
         </scene>
     </scenes>
 </document>
