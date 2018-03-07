@@ -138,4 +138,8 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 
 
 ## Lecture 13. Persistence and Documents
-* Coming up next. 
+
+<img src="artwork/lecture-13.jpg?raw=true" width="320">
+
+* [Lecture 13 Slides](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
+* Code from lecture 13 (Finishing up with lecture 12) in tag: [lecture-13.Persistence-and-Documents](https://github.com/rubenbaca/cs193p_iOS11/tree/lecture-13.Persistence-and-Documents).
