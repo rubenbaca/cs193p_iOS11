@@ -157,5 +157,3 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 
 * PDF: [Programming Project 6: Persistent Image Gallery](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
 * Code for this assignment in folder: *ImageGallery_P6*.
-* Note: Task #5. *Cache the images in all of your Image Galleries locally using URLCache* coming in the next commit.
-
