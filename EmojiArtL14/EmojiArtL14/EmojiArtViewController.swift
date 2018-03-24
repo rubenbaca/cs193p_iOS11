@@ -200,9 +200,10 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
     var document: EmojiArtDocument?
     
     ///
-    /// Save the current document
+    /// Called when document changes. It will, for intance, save the document
     ///
-    @IBAction func save(_ sender: UIBarButtonItem? = nil) {
+//    @IBAction func save(_ sender: UIBarButtonItem? = nil) {
+    func documentChanged(_ sender: UIBarButtonItem? = nil) {
         // Update document with model
         document?.emojiArt = emojiArt
         
@@ -216,8 +217,14 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
     /// Close the current document. Saves it before doing so.
     ///
     @IBAction func close(_ sender: UIBarButtonItem) {
+        
+        // Stop observing for EmojiArtViewDidChange notifications
+        if let observer = emojiArtViewObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
+        
         // Let's save before we close
-        save()
+        documentChanged()
         
         if document?.emojiArt != nil {
             // Create a "thumbnail" for this document
@@ -227,15 +234,33 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
         // Dismiss the ViewController
         dismiss(animated: true) {
             // Close it after it has been dismissed
-            self.document?.close()
+            self.document?.close { success in
+                // Lecture #15: Stop observing document changes
+                if let documentObserver = self.documentObserver {
+                    NotificationCenter.default.removeObserver(documentObserver)
+                }
+            }
         }
     }
+    
+    // Used as a cookie to tell notificacion center when to stop observing document changes
+    private var documentObserver: NSObjectProtocol?
+
+    private var emojiArtViewObserver: NSObjectProtocol?
     
     //
     // View will appear
     //
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // Lecture #15: Observe document state
+        NotificationCenter.default.addObserver(
+            forName: Notification.Name.UIDocumentStateChanged,
+            object: document,
+            queue: OperationQueue.main) { (notification) in
+                print("--- Document state changed to: \(self.document?.documentState.description)") // temporary debug
+        }
         
         // Open document
         document?.open { success in
@@ -244,6 +269,14 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
                 self.title = self.document?.localizedName
                 // Setup model
                 self.emojiArt = self.document?.emojiArt
+                
+                self.emojiArtViewObserver = NotificationCenter.default.addObserver(
+                    forName: .EmojiArtViewDidChange,
+                    object: self.emojiArtView,
+                    queue: OperationQueue.main,
+                    using: { (notification) in
+                        self.documentChanged()
+                })
             }
             else {
                 print("Failed to open document.")
@@ -251,6 +284,10 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
     
+    ///
+    /// Whether or not we want to show warnings when dropping images fail
+    ///
+    private var supressBadURLWarnings = false
 }
 
 // Conform to `UIDropInteractionDelegate`
@@ -295,8 +332,20 @@ extension EmojiArtViewController: UIDropInteractionDelegate {
         session.loadObjects(ofClass: NSURL.self) { nsurls in
             // We only care about the first one. If there were others, ignore them.
             if let url = nsurls.first as? URL {
+                
                 // Asynchronously fetch the image based on the given url.
-                self.imageFetcher.fetch(url)
+                DispatchQueue.global(qos: .userInitiated).async {
+                    if let data = try? Data(contentsOf: url.imageURL), let image = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            self.emojiArtBackgroundImage = (url, image)
+                            self.document?.updateChangeCount(.done)
+                        }
+                    }
+                    else {
+                        // Drop failed, we couldn't fetch image from url
+                        self.presentBadURLWarning(for: url)
+                    }
+                }
             }
         }
         
@@ -308,6 +357,36 @@ extension EmojiArtViewController: UIDropInteractionDelegate {
                 self.imageFetcher.backup = image
             }
         }
+    }
+    
+    
+    ///
+    /// Presents a warning indicating that the given url couldn't be fetched.
+    ///
+    private func presentBadURLWarning(for url: URL) {
+        
+        // Don't show any warning if supressBadURLWarnings == true
+        if supressBadURLWarnings {
+            return
+        }
+        
+        // Alert to show the warning
+        let alert = UIAlertController(
+            title: "Image transfer failed",
+            message: "Transfering the image dropped failed.\nKeep showing this warnings?",
+            preferredStyle: .alert
+        )
+        
+        // Action #1: Keep warning
+        alert.addAction(UIAlertAction(title: "Keep Warning", style: .default))
+        
+        // Action #2: Stop warning
+        alert.addAction(UIAlertAction(title: "Stop Warning", style: .destructive) { alert in
+            self.supressBadURLWarnings = true
+        })
+        
+        // Present the warning
+        present(alert, animated: true)
     }
 }
 
@@ -596,5 +675,32 @@ extension EmojiArt.EmojiInfo {
         self.y = Int(label.center.y)
         self.size = Int(font.pointSize)
         self.text = attributedText.string
+    }
+}
+
+// Temporary extension to debug tracking of document state
+extension UIDocumentState {
+    var description: String {
+        if self == UIDocumentState.closed {
+            return "closed"
+        }
+        else if self == UIDocumentState.editingDisabled {
+            return "editingDisabled"
+        }
+        else if self == UIDocumentState.inConflict {
+            return "inConflict"
+        }
+        else if self == UIDocumentState.normal {
+            return "normal"
+        }
+        else if self == UIDocumentState.progressAvailable {
+            return "progressAvailable"
+        }
+        else if self == UIDocumentState.savingError {
+            return "savingError"
+        }
+        else {
+            return "(other)"
+        }
     }
 }
