@@ -157,3 +157,11 @@ This course is free and available in iTunes. You'll find the videos/lectures, sl
 
 * PDF: [Programming Project 6: Persistent Image Gallery](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
 * Code for this assignment in folder: *ImageGallery_P6*.
+
+## Lecture 15: Alerts, Notifications, Application Lifecycle
+
+<img src="artwork/lecture-15.jpg?raw=true" width="320">
+
+* [Lecture 15 Slides](https://www.dropbox.com/sh/yofsd7zbqr39314/AAAPwZdPQU3k4xRN84snoLVUa?dl=0).
+* Code from lecture 15 (Alerts, Notifications, Application Lifecycle) added to EmojiArtL14 in tag: [lecture-15.Alerts-Notifications-Application-Lifecycle](https://github.com/rubenbaca/cs193p_iOS11/tree/lecture-15.Alerts-Notifications-Application-Lifecycle).
+
