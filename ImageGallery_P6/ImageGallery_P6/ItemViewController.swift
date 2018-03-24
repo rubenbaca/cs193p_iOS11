@@ -35,7 +35,8 @@ class ItemViewController: UIViewController {
     private func fetchImage(_ url: URL) {
         
         // TODO: should show "loading" animation
-        
+        // TODO: should also use cache
+
         DispatchQueue.global(qos: .userInitiated).async {
             guard let data = try? Data(contentsOf: url.imageURL) else {
                 // TODO: should reflect "failed" state

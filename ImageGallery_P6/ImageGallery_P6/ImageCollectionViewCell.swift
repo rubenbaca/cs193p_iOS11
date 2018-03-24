@@ -42,7 +42,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         }
         else {
             // Fetch the image using the given url
-            fetchImage(using: url!)
+            fetchImage(using: url!.imageURL)
         }
     }
     
@@ -149,36 +149,62 @@ class ImageCollectionViewCell: UICollectionViewCell {
     /// Fetch the url without blocking the main queue to keep UI responsive.
     ///
     private func fetchImageAsynchronously(using url: URL) {
+
+        //
+        // From Apple's documentation:
+        // Applications that do not have special caching requirements or constraints should find
+        // the default shared cache instance acceptable.
+        //
+        let cache = URLCache.shared
+        let request = URLRequest(url: url)
         
-        // Use a high-priority queue that does not block the UI
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+        // If data is cached, use it
+        if let data = cache.cachedResponse(for: request)?.data {
+            if let image = UIImage(data: data) {
+                state = .ok(image)
+                return
+            }
+        }
+        
+        // Data is not in local cache, fetch it
+        URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
             
-            // Fetch data from the given URL
-            guard let data = try? Data(contentsOf: url.imageURL) else {
-                // Update UI for failed state (in the main queue!)
+            // Make sure we got valid data
+            guard let data = data else {
                 DispatchQueue.main.async {
-                    self?.state = .fetchFailed("Failed getting data from url: \(url)")
+                    self?.state = .fetchFailed("Response didn't obtain any data")
                 }
                 return
             }
             
-            // Create an image with the fetched data
+            // Make sure we got a response
+            guard let response = response else {
+                DispatchQueue.main.async {
+                    self?.state = .fetchFailed("Response is nil")
+                }
+                return
+            }
+            
+            // Make sure the data obtained is a valid image
             guard let image = UIImage(data: data) else {
-                // Update UI for failed state (in the main queue!)
                 DispatchQueue.main.async {
-                    self?.state = .fetchFailed("Failed creating image with data from url: \(url)")
+                    self?.state = .fetchFailed("Response data is not valid image")
                 }
                 return
             }
             
-            // If by the time the async. fetch finishes, the imageURL is still the same (remember it could no
-            // longer be the same), update the UI (in the main queue)
-            if self?.imageURL == url {
+            // Add the image we just got to the local cache
+            let cachedData = CachedURLResponse(response: response, data: data)
+            cache.storeCachedResponse(cachedData, for: request)
+            
+            // We're doing an async. operation. Make sure that by this point the URL we obtained
+            // is still the one the user wants!
+            if request.url == self?.imageURL {
                 DispatchQueue.main.async {
                     self?.state = .ok(image)
                 }
             }
-        }
+        }.resume()
     }
     
     //
