@@ -25,6 +25,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     ///
     var imageURL: URL? {
         didSet {
+            imageURL = imageURL?.imageURL // checks to see if there is an embedded imgurl reference
             updateUI(for: imageURL)
         }
     }
@@ -42,7 +43,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         }
         else {
             // Fetch the image using the given url
-            fetchImage(using: url!.imageURL)
+            fetchImage(using: url!)
         }
     }
     
